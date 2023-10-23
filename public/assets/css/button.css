@@ -47,3 +47,10 @@
     font-size: 50px;
 
 }
+@media (max-width: 995px){
+    .btn-hover{
+        width: 130px;
+    }   
+            
+    }
+
