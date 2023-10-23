@@ -1,0 +1,3 @@
+COOKIE=><%= authStatusUI %>
+MASSAGE=><%= message %>
+class="ml-4 nav-link btn btn-primary btn-sm rounded"

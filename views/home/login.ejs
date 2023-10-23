@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+</head>
+<body>
+    <div class="background">
+        <h2>VGMC 로그인</h2>
+        <form action="/auth/login_process" method="post">
+            <p><input class="login" type="text" name="username" placeholder="아이디"></p>
+            <p><input class="login" type="password" name="pwd" placeholder="비밀번호"></p>
+            <p><input class="btn" type="submit" value="로그인"></p>
+        </form>
+        <p>계정이 없으신가요?  <a href="/auth/register">회원가입</a></p>
+    </div>
+</body>
+</html>
