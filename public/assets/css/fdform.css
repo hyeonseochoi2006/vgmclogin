@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;
+    background: url(/assets/imgs/sunday.jpg) no-repeat center;
+    background-size: 100%;
+    background-size: cover;
+    position: relative;
+}
+body::before {
+    content: "";
+    position: absolute; 
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.8);
+
+}
+.fd-form{
+    position:relative; 
+    z-index: 2;
+}
+
+.fd-form h1{
+    font-size: 32px; 
+    color: #fff;
+    text-align: center;
+    padding-bottom: 15px;
+    margin-bottom: 60px;
+}
+.int-area,
+.int-area2 {
+  width: 100%;
+  width: 300px; /* Make inputs full width on mobile */
+  position: relative;
+  margin-top: 20px;
+}
+
+.int-area:first-child{margin-top: 0;}
+.int-area2:first-child{margin-top: 0;}
+.int-area input{
+    width: 100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border:none;
+    border-bottom:1px solid #fff;
+    font-size: 18px; color: #fff;
+    outline: none;
+}
+.int-area2 input{
+    width: 100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border:none;
+    border-bottom:1px solid #fff;
+    font-size: 18px; color: #fff;
+    outline: none;}
+
+.int-area label{
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 18px;
+    color: #999;
+    transition: all .5s ease;
+}
+.int-area2 label{
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 18px;
+    color: #999;
+    transition: all .5s ease;
+}
+
+
+.int-area input:focus + label{
+    top: -2px;
+    font-size: 13px;color: #00DFA2;
+}
+.int-area2 input:focus + label{
+    top: -2px;
+    font-size: 13px;color: #00DFA2;
+}
+.int-area input:valid + label {
+    top: -2px;
+    font-size: 13px;color: #00DFA2;
+}
+.int-area2 input:valid + label {
+    top: -2px;
+    font-size: 13px;color: #00DFA2;
+}
+.btn-area{margin-top: 30px; padding-bottom: 40px;}
+
+.btn-area button{   width: 100%; height: 50px;
+    background: #00DFA2;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    transition: .4s;
+}
+button:hover{
+    
+    transform: scale(1.1);
+    cursor: pointer;}
+
+#feedbackSentMessage{
+    font-size: 30px;
+    color: white;
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+
+.btn-10{
+    font-size: 15px;
+    padding: 5px 20px;
+    margin-top: 30px;
+    border: 2px solid #A2FF86;
+    background-color: transparent;
+    border-radius:25px ;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    position:relative;
+    transition: all .4s;
+    overflow: hidden;
+}
+.btn-10:focus{
+    outline:none
+} 
+.btn-10::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.341);
+    top: 100%;
+    left: 0;
+    border-radius: 25px;
+    transition: all .4s;
+    z-index: -1;
+}
+.btn-10:hover::before{
+    transform: translateY(-100%);
+}
+.btn-10:hover{
+    color: #A2FF86;
+}
+
+
+.int-area label.warning{
+    color: red !important; /* 텍스트 색상을 빨간색으로 설정하고 !important로 우선순위를 높여 다른 스타일에서 덮어씌이지 않도록 합니다. */
+    animation: warning .3s ease; /* warning 애니메이션을 적용합니다. */
+    animation-iteration-count: 3; /* 애니메이션을 3회 반복합니다. */
+}
+
+@keyframes warning {
+    0% { transform: translateX(-8px); } /* 0% 시점에서 x축으로 -8px 이동 */
+    25% { transform: translateX(8px); } /* 25% 시점에서 x축으로 8px 이동 */
+    50% { transform: translateX(-8px); } /* 50% 시점에서 x축으로 -8px 이동 */
+    75% { transform: translateX(8px); } }
+
+@media screen and (max-width: 280px){
+  body{
+    background-size: 350%;
+  }
+.int-area,
+.int-area2 {
+  width: 100%;
+  width: 200px; /* Make inputs full width on mobile */
+  position: relative;
+  margin-top: 20px;
+}
+}
+    

@@ -1,5 +1,6 @@
 const express = require('express')
 const session = require('express-session')
+const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const cors = require('cors');
 
@@ -62,6 +63,63 @@ app.get('/main', (req, res) => {
   }
   res.render('home/index', { title: 'Welcome', message: '로그인에 성공하셨습니다.', authStatusUI: authCheck.statusUI(req, res),  session: req.session, userProfile: userProfile, req: req, });
 });
+// 피드백
+app.get('/comment', (req, res) => {
+  if (!authCheck.isOwner(req, res)) {
+    res.redirect('/auth/login');
+    return false;
+  }
+  const userProfile = req.session.user || {};
+  if (!userProfile.profile_picture) {
+    userProfile.profile_picture = './assets/imgs/origin-profile.png';
+  }
+  res.render('home/comment');
+});
+// Nodemailer 설정
+const emailConfig = {
+  service: "gmail", // 이메일 서비스 (Gmail 사용)
+  auth: {
+    user: "vgmcsent@gmail.com", // 발신자 이메일 주소
+    pass: "gcmddomkzhdxhiib", // 발신자 이메일 계정의 암호 (앱 비밀번호를 사용해야 할 수도 있음)
+  },
+};
+
+app.get('/feedback', (req, res) => {
+  if (!authCheck.isOwner(req, res)) {
+    res.redirect('/auth/login');
+    return false;
+  }
+  
+  res.render('home/feedback')
+});
+app.post('/submit-feedback', (req, res) => {
+  const name = req.body.name;
+  const message = req.body.message;
+
+  // Nodemailer를 사용하여 이메일 전송
+  const transporter = nodemailer.createTransport(emailConfig);
+
+  const mailOptions = {
+    from: 'vgmcsent@gmail.com', // 발신자 이메일 주소
+    to: 'vgmcyouthcouncil@gmail.com', // 수신자 이메일 주소 (개발자 이메일)
+    subject: '쪽지 제출', // 이메일 제목
+    text: `이름: ${name}\n메시지: ${message}`, // 이메일 내용
+  };
+
+
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('이메일 전송 에러:', error);
+      res.status(500).send('피드백 제출에 실패했습니다.');
+    } else {
+      console.log('이메일 전송 성공:', info.response);
+      res.send('피드백이 성공적으로 제출되었습니다.');
+    }
+  });
+});
+
+
 
 
 
@@ -355,6 +413,7 @@ app.post('/profile/edit_process', function (request, response) {
       }
   });
 });
+
 
 
 
