@@ -1,7 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const multer = require('multer');
+const path = require('path');
 
 var db = require('../db.js');
+
+
+
+
 
 // 로그인 화면
 router.get('/login', function (request, response) {
@@ -18,10 +24,23 @@ router.post('/login_process', function (request, response) {
         db.query('SELECT * FROM usertable WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
             if (error) throw error;
             if (results.length > 0) {       // db에서의 반환값이 있으면 로그인 성공
+                const user = {id: results[0].id,}
                 request.session.is_logined = true;      // 세션 정보 갱신
                 request.session.nickname = username;
-                request.session.save(function () {
-                    response.redirect(`/`);
+                request.session.user = user;
+                db.query('SELECT profile_picture FROM usertable WHERE username = ?', [username], function (error, results, fields) {
+                    if (error) throw error;
+                    if (results.length > 0) {
+                        user.profile_picture = results[0].profile_picture;
+                    } else {
+                        user.profile_picture = '../assets/imgs/origin-profile.png'; // 기본 프로필 이미지 경로
+                    }
+
+                    request.session.user.profile_picture = user.profile_picture;
+
+                    request.session.save(function () {
+                        response.redirect('/');
+                    });
                 });
             } else {              
                 response.send(`<script type="text/javascript">alert("로그인 정보가 일치하지 않습니다."); 
@@ -37,11 +56,14 @@ router.post('/login_process', function (request, response) {
 
 // 로그아웃
 router.get('/logout', function (request, response) {
+    // 세션을 파기하고 로그아웃 처리
     request.session.destroy(function (err) {
+        if (err) {
+            console.error(err);
+        }
         response.redirect('/');
     });
 });
-
 
 // 회원가입 화면
 router.get('/register', function(request, response) {
@@ -80,5 +102,10 @@ router.post('/register_process', function(request, response) {
         document.location.href="/auth/register";</script>`);
     }
 });
+
+
+
+
+
 
 module.exports = router;

@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Rethink+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap');
 .front-btn {
     margin: 10%;
     text-align: center;
@@ -44,7 +45,7 @@
 /* /social/ */
 #buu{
     font-family: 'Nanum Pen Script', cursive;
-    font-size: 50px;
+    font-size: 40px;
 
 }
 @media (max-width: 995px){
@@ -54,3 +55,212 @@
             
     }
 
+
+    .profile-card {
+        position: relative;
+        display: inline-block;
+        border:none;
+        /* border-width: 3px; */
+        border-radius: 100px;
+        padding: 1.5px;
+        background-color: transparent;
+        outline: none;
+    }
+    
+    
+    .profile-card img {
+        border: none;
+        width: 40px;
+        border-radius: 100px; 
+        
+    }
+    .profile-card:hover{
+        box-shadow:5px 5px 10px -5px #e43603;
+        
+    }
+    .profile-card:focus {
+        outline: none;
+        
+    }
+    .editButton {
+        width: 35px;
+        border-radius: 30px;
+        padding: 10px;
+        border: none;
+        display: flex;
+        
+        position: absolute;
+        top: 60px;
+        right: 45px;
+        
+        
+    } 
+    /* .popup .ps:hover .editButton {
+        background-color: #e43603;
+      }
+       */
+    .editButton img{
+        
+        width: 15px;
+        
+    }  
+    @media(max-width:500px){
+        /* 600보다 작으면 */
+        .editButton {
+            top: 65px;
+            right: 43px;
+        }
+        
+    }
+    
+    
+    /* 드롭다운 내용 스타일 (초기에는 숨김) */
+    .popup {
+        padding: 20px 100px 50px 100px !important; 
+        display: none;
+        position: absolute;
+        right: 1px; 
+        background-color: #f9f9f9;
+        min-width: 160px;
+        border-radius: 20px;
+        margin-top: 3rem;
+        margin-right: 2rem;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        text-align: center;
+       
+    }
+
+   
+    @media(max-width:500px){
+        .popup{
+            padding: 20px 10px 50px 10px !important;
+        }
+        .large{
+            display: none;
+        }
+        
+    }
+    @media(max-width:600px){
+        /* 600보다 작으면 */
+        .large{
+            display: none;
+        }
+        .small{
+            display: block;
+        }
+        
+    }
+    
+    
+    @media(min-width:600px){
+        /* 600보다 크면 */
+        .large{
+            display: block
+        }
+        .small{
+            display: none;
+        }
+        
+    }
+
+    
+    /* 드롭다운 내용 표시 (이미지 클릭 시) */
+    .profile-card:hover .popup {
+        display: block;
+    }
+    
+    
+    /* 드롭다운 내용 링크 스타일 */
+    .popup .ps  {
+        border: none;
+        width: 70px;
+        border-radius: 100px; 
+    }
+    .popup .profile {
+        border-color: #e43603;
+        border-width: 3px;
+        border-radius: 100px;
+        padding: 1.5px;
+        
+    }
+    
+    
+    .popup h1 {
+        font-family: 'Rethink Sans', sans-serif;
+        font-family: 'Dongle', sans-serif;
+        padding: 12px 16px;
+        color: #333;
+        font-size: 50px;
+    }
+    
+    /* 드롭다운 내용 링크에 호버 효과 */
+    .popup img:hover {
+        background-color: #ddd;
+    }
+    .edit .editimg{
+        width: 20px;
+    }
+    .edit-btnn {
+        margin: 10px;
+        width: 130px;
+        height: 40px;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px 25px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+        outline: none;
+    }
+    
+    
+    
+    
+    
+    .Ebtnn-5 {
+        width: 130px;
+        height: 40px;
+        line-height: 42px;
+        padding: 0;
+        border: none;
+        background: rgb(255,27,0);
+      background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+      }
+      .Ebtnn-5:hover {
+        color: #f0094a;
+        background: transparent;
+         box-shadow:none;
+      }
+      .Ebtnn-5:before,
+      .Ebtnn-5:after{
+        content:'';
+        position:absolute;
+        top:0;
+        right:0;
+        height:2px;
+        width:0;
+        background: #f0094a;
+        box-shadow:
+         -1px -1px 5px 0px #fff,
+         7px 7px 20px 0px #0003,
+         4px 4px 5px 0px #0002;
+        transition:400ms ease all;
+      }
+      .Ebtnn-5:after{
+        right:inherit;
+        top:inherit;
+        left:0;
+        bottom:0;
+      }
+      .Ebtnn-5:hover:before,
+      .Ebtnn-5:hover:after{
+        width:100%;
+        transition:800ms ease all;
+      }

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
 
-    <title>vgmc</title>
+    <title>VGMC</title>
     <!-- font icons -->
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + LeadMark main styles -->
 	<link rel="stylesheet" href="assets/css/leadmark.css">
 
     <link rel="stylesheet" type="text/css" href="/assets/css/button.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/indexrelative.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -22,11 +23,11 @@
                 <img src="/assets/imgs/log2.png" alt="">
             </a>
             <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="display: none;"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">                     
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#service">도구(Tools)</a>
                     </li>
                     <li class="nav-item">
@@ -36,11 +37,29 @@
                         <a class="nav-link" href="#portfolio">앨범(Album)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">연락(Contact)</a>
+                        <a class="nav-link" href="#portfolio">연락(contact)</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <button class="profile-card" id="profile-picture" style="border-color: #e43603;">
+                            <img src="<%= userProfile.profile_picture %>" alt=" 프로필 사진" style="display: inline-block;" >
+                        </button>
+                        
+                        <div id="profile-popup" class="popup">
+                            <button class="profile" id="profileButton">
+                                <img src="<%= userProfile.profile_picture %>"  alt=" 프로필 사진" class="ps">
+                            </button>
+                            
+                            <h1 class="large"> 안녕하세요!,<%= authStatusUI %></h1>
+                            <h1 class="small"> <%= authStatusUI %></h1>
+                            <button class="editButton" id="editButton" >
+                                <img src="<%= session.profileImage || '/assets/imgs/pen.png' %>" alt="프로필 이미지" class="editimg">
+
+                            </button>
+
+                            <button id="logoutButton" class="edit edit-btnn Ebtnn-5">로그아웃</button>
+                        </div>
                     </li>
-                    <li class="nav-item" ">
-                        <button id="logoutButton" class="ml-4 nav-link btn btn-primary btn-sm rounded" style="padding-left: 25px; padding-right: 25px; color: #fff; font-weight: bold;">로그아웃</button>
-                    </li>
+                    
                 </ul>
                 
             </div>
@@ -69,42 +88,57 @@
     <!-- Service Section -->
     <section  id="service" class="section pt-0">
         <div class="container">
-            <h6 class="section-title text-center">다양한 서비스</h6>
+            <h6 class="section-title text-center">바로가기</h6>
             <h6 class="section-subtitle text-center mb-5 pb-3">Various Services</h6>
 
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card mb-4 mb-md-0">
+                    <div class="card mb-4 mb-md-0" id="btn-section">
                         <div class="card-body">
-                            <small class="text-primary font-weight-bold">Letter</small>
-                            <h5 class="card-title mt-3"id="buu"> 편지 <h5>
-                            <button class="btn-hover front-btn" onclick="window.open('https://port-0-vgmc-ah80fy2lll1x44r8.sel3.cloudtype.app/', '_blank')">작성하기</button>
+                            <div class="btnbox1">
+                                <div class="firstbtns">
+                                    <button class="sendsurface" onclick="window.open('https://port-0-vgmc-ah80fy2lll1x44r8.sel3.cloudtype.app/', '_blank')">
+                                        <img src="/assets/imgs/airplane.png" class="sendimg">
+                                        
+                                    </button>
+                                    <span class="button-text1">편지</span>
+                                </div>
+
+                                <div class="seconedbtns">
+                                    <button class="sendsurface" onclick="window.open('https://www.google.com/maps/place/%EB%B0%B4%EC%BF%A0%EB%B2%84+%EC%A7%80%EA%B5%AC%EC%B4%8C+%EA%B5%90%ED%9A%8C+(Vancouver+Global+Mission+Church)/@49.1058585,-122.6720948,17z/data=!3m1!4b1!4m6!3m5!1s0x5485cf4121ad4afd:0x7318ddf9d3b624c6!8m2!3d49.1058585!4d-122.6695199!16s%2Fg%2F11c2pxvgmq?entry=ttu', '_blank')">
+                                        <img src="/assets/imgs/google-maps.png" class="sendimg">
+                                        
+                                    </button>
+                                    <span class="button-text2">지도</span>
+                                </div>
+                                <div class="thirdbtns">
+                                    <button class="sendsurface" onclick="window.open('https://www.instagram.com/vgmc_yc/', '_blank')" >
+                                        <img src="/assets/imgs/instagram (1).png" class="sendimg">
+                                        
+                                    </button>   
+                                    <span class="button-text3">인스타</span>
+                                </div>
+                                <div class="fourthbtns">
+                                    <button class="sendsurface" onclick="window.open('https://www.youtube.com/@vgmcyouth', '_blank')" >
+                                        <img src="/assets/imgs/youtube.png " class="sendimg">
+                                        
+                                    </button>   
+                                    <span class="button-text3">유튜브</span>
+                                </div>
+                                <div class="fourthbtns">
+                                    <button class="sendsurface" onclick="window.open('https://n6v.61c.myftpupload.com/devotions/daily-bible-verse/', '_blank')" >
+                                        <img src="/assets/imgs/book.png " class="sendimg">
+                                        
+                                    </button>   
+                                    <span class="button-text3">QT</span>
+                                </div>
+                            </div>
+                          
+                            
                         </div>  
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 mb-md-0">
-                        <div class="card-body">
-                            <small class="text-primary font-weight-bold">Map</small>
-                            <h5 class="card-title mt-3" id="buu">오시는 길<h5>
-                                <button class="btn-hover front-btn" onclick="window.open('https://www.google.com/maps/place/%EB%B0%B4%EC%BF%A0%EB%B2%84+%EC%A7%80%EA%B5%AC%EC%B4%8C+%EA%B5%90%ED%9A%8C+(Vancouver+Global+Mission+Church)/@49.1058585,-122.6720948,17z/data=!3m1!4b1!4m6!3m5!1s0x5485cf4121ad4afd:0x7318ddf9d3b624c6!8m2!3d49.1058585!4d-122.6695199!16s%2Fg%2F11c2pxvgmq?entry=ttu', '_blank')">찾아가기</button>
-                                
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 mb-md-0">
-                        <div class="card-body">
-                            <small class="text-primary font-weight-bold">Instagram
-                                <img src="/assets/imgs/ins.png" style="width: 15px ;">
-                            </small>
-                            <h5 class="card-title mt-3" id="buu">인스타그램
-                                <h5>
-                                
-                            <button class="btn-hover front-btn" onclick="window.open('https://www.instagram.com/vgmc_yc/', '_blank')" >이동하기</button>
-                        </div>
-                    </div>
-                </div>              
+               
             </div>
         </div>
     </section>
@@ -165,7 +199,7 @@
                         </div>   
                     </div>             
                 </div>
-                <div class="col-md-6 col-lg-4 web new">
+                <!-- <div class="col-md-6 col-lg-4 web new">
                     <div class="portfolio-item">
                         <img src="assets/imgs/ready2.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">
                         <div class="content-holder">
@@ -176,7 +210,7 @@
                             </div>
                         </div> 
                     </div>                         
-                </div>
+                </div> -->
                 <div class="col-md-6 col-lg-4 web new">
                     <div class="portfolio-item">
                         <img src="assets/imgs/v.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">                         
@@ -189,7 +223,7 @@
                         </div>    
                     </div>              
                 </div> 
-                <div class="col-md-6 col-lg-4 web">
+                <!-- <div class="col-md-6 col-lg-4 web">
                     <div class="portfolio-item">
                         <img src="assets/imgs/v2.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">
                         <div class="content-holder">
@@ -200,7 +234,7 @@
                             </div>
                         </div>
                     </div>                                                     
-                </div>
+                </div> -->
 
                 <div class="col-md-6 col-lg-4 advertising"> 
                     <div class="portfolio-item">
@@ -214,7 +248,7 @@
                         </div>
                     </div>                                                       
                 </div> 
-                <div class="col-md-6 col-lg-4 web new">
+                 <!-- <div class="col-md-6 col-lg-4 web new">
                     <div class="portfolio-item">
                         <img src="assets/imgs/ready.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">  
                        <div class="content-holder">
@@ -225,7 +259,7 @@
                             </div>
                         </div>
                     </div>                                                     
-                </div>
+                </div> -->
                 <div class="col-md-6 col-lg-4 advertising">
                     <div class="portfolio-item">
                         <img src="assets/imgs/ready2.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">       
@@ -238,7 +272,7 @@
                         </div>
                     </div>                                                       
                 </div> 
-                <div class="col-md-6 col-lg-4 advertising"> 
+                <!-- <div class="col-md-6 col-lg-4 advertising"> 
                     <div class="portfolio-item">
                         <img src="assets/imgs/v3.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">            
                         <div class="content-holder">
@@ -262,8 +296,8 @@
                             </div>
                         </div> 
                     </div>
-                </div> 
-                <div class="col-md-6 col-lg-4 branding">
+                </div>  -->
+                <!-- <div class="col-md-6 col-lg-4 branding">
                     <div class="portfolio-item">
                         <img src="assets/imgs/branding-2.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">  
                         <div class="content-holder">
@@ -274,8 +308,8 @@
                             </div>
                         </div>
                     </div>                                                     
-                </div> 
-                <div class="col-md-6 col-lg-4 branding new">
+                </div>  -->
+                <!-- <div class="col-md-6 col-lg-4 branding new">
                     <div class="portfolio-item">
                         <img src="assets/imgs/v2.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">   
                         <div class="content-holder">
@@ -298,8 +332,8 @@
                             </div>
                         </div>
                     </div>                                                      
-                </div> 
-                <div class="col-md-6 col-lg-4 branding">
+                </div>  -->
+                <!-- <div class="col-md-6 col-lg-4 branding">
                     <div class="portfolio-item">
                         <img src="assets/imgs/branding-5.jpg" class="img-fluid" alt="Download free bootstrap 4 admin dashboard, free boootstrap 4 templates">          
                         <div class="content-holder">
@@ -311,7 +345,7 @@
                         </div>
                     </div>                                                   
                 </div>
-            </div>   
+            </div>    -->
         </div>            
     </section>
     <!-- End of portfolio section -->
@@ -448,6 +482,7 @@
                     </form> -->
                 </div>
             </div>
+            
             <!-- Page Footer -->
             <footer class="mt-5 py-4 border-top border-secondary">
                 <p>VGMCYOUTH WEBSITE</p>
@@ -476,9 +511,38 @@
                 console.error('로그아웃 요청 중 오류 발생', error);
             });
         });
-    </script>
 
+      //파업
+        const profilePicture = document.getElementById('profile-picture');
+        const profilePopup = document.getElementById('profile-popup');
+        const closePopup = document.getElementById('close-popup');
+
+        profilePicture.addEventListener('click', () => {
+        if (profilePopup.style.display === 'block') {
+            profilePopup.style.display = 'none';
+        } else {
+            profilePopup.style.display = 'block';
+        }
+    });
+    
+        document.getElementById("editButton").addEventListener("click", function() {
+        // 사용자 정보 수정 페이지로 이동합니다.
+        window.location.href = "/profile";
+         // 수정 페이지의 경로로 변경하세요.
+         
+
+        });
+        document.getElementById("profileButton").addEventListener("click", function() {
+        // 사용자 정보 수정 페이지로 이동합니다.
+        window.location.href = "/profile"; // 수정 페이지의 경로로 변경하세요.
+
+        });
+        
+        
+    
+    </script>
    
+    
 	
 	<!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>

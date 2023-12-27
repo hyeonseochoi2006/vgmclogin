@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VGMC</title>
+    <link rel="stylesheet" href="/css/ps.css">
+    <link rel="stylesheet" href="/css/buttonsimple.css">
+    <link rel="stylesheet" href="/css/pscontainer.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.js"></script>
+    <style>
+    .modal-backdrop1 {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .upload-backdrop {
+     display:none;
+     position: fixed;
+     z-index: 9999;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.5);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+    
+    
+    .cropper-table {
+        position: fixed !important;
+        width: 60vw;
+        height: 70vh;
+        max-width: 90%;
+        max-height: 90%;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+   
+    .upload-container {
+        position: relative;
+        width: 60vw;
+        height: 70vh;
+        max-width: 90%;
+        max-height: 90%;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .pline{
+        border-top: 1px solid #444444;
+        margin-bottom: 10px ;
+        width: 200px; 
+
+
+    }
+    .btn-container{
+        position: fixed;
+        bottom: 50px;
+        left: 45%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center; }
+    .btn-container button {
+        margin-top: 10px; 
+        margin-right: 10px;
+    }
+
+
+
+        
+  </style>
+
+</head>
+
+<body>
+    <div class="container right-panel-active">
+        
+      <!-- first -->
+      <div class="container__form container--signup">
+        <form action="#" class="form" id="form1">
+          <h2 class="form__title">프로필 수정</h2>
+          <div class="pline"></div>
+            <div class="fadeIn first">
+                <img id="profileImage" src="<%= userProfile.profile_picture %>" alt="Profile Image" >
+            </div>
+            <div class="file-input-container">
+                <label for="profilePictureInput" class="file-input-label">변경하기</label>
+                <input type="file" id="profilePictureInput" name="profilePicture" accept="image/*" onchange="openCropper(event)">
+                
+            </div>
+          
+        </form>
+      </div>
+      <!-- secend -->
+    <div class="container__form container--signin">
+        <form method="post" action="/profile/edit_process" id="editForm" class="form" >
+            <h2 class="form__title">프로필 정보 수정</h2>
+            <div class="pline"></div>
+            <h1 class="textp">새 이름:</h1>
+            <input type="text" id="username" name="username" class="input" placeholder="<%= authStatusUI %>" >
+            <input type="submit" name="saveUsername" value="저장" class="btnsj" >
+            <h1 class="textp">새 비번:</h1>
+            <input type="password" id="password" name="password" class="input" placeholder="새로운 비밀번호" autocomplete="new-password">
+            <input type="submit" name="savePassword" value="저장" class="btnsj">
+        </form>
+    </div>
+    
+    
+        <!-- Overlay -->
+        <div class="container__overlay">
+            <div class="overlay">
+                <div class="overlay__panel overlay--left">
+                    <button class="btn" id="signIn">정보 수정</button>
+                    <button class="backbtn" id="backButton" style="margin: 20px;">돌아가기</button>
+                </div>
+                <div class="overlay__panel overlay--right">
+                    <button class="btn" id="signUp">사진 수정</button>
+                    <button class="backbtn" id="backButtonn" style="margin: 20px;">돌아가기</button>
+                </div>    
+            </div>
+        </div>
+       
+   
+        
+    </table>
+    <div class="wrapper">
+            <!-- ps.css -->
+            <!-- 크롬 영역은 자바 코드로 수정 -->
+            <div class="fadeIn first">
+                <div id="previewProfile" style="max-width: 300px;"></div>
+            </div>
+            <form id="uploadForm" action="/profile/upload" method="post" enctype="multipart/form-data">
+                
+                <button type="submit" class="btn" style="display: none; bottom: 10px;">저장</button>
+                <button class="btn" id="cancelBtn" style="display: none; bottom: 10px;" onclick="cancelCrop()">취소</button>
+            </form>
+
+            <div class="modal-backdrop1" id="cropperModal" style="display: none; ; width: 100%;">
+                <div class="cropper-table">
+                    <input type="file" id="cropperInput" style="display: none;  ">
+                    <div>
+                        <h3>사진 자르기</h3>
+                        <img id="croppedImage" src="" alt="크롭된 이미지"  >
+                        <div class="btn-container">
+                            <button class="btn" onclick="uploadProfileImage()">저장</button>
+                            <button class="btn" onclick="cancelCrop()">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-backdrop" id="uploadModal" style="display: none; ">
+                <div class="upload-container">
+                    <div>
+                        <h3>미리보기</h3>
+                        <img id="croppedImageMainView" src="" alt="크롭된 이미지" style="max-width: 300px;border-radius: 100px;
+                        margin-top: 50px;">
+                        <div class="btn-container" style="bottom: 150px;">
+                            <button type="button"  class="btn" id="uploadMainView" onclick="performUpload()">업로드</button>
+                            <button class="btn" id="cancelMainView" onclick="cancelCrop()">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+            </div>    
+            
+   
+    <script>
+   const backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', function() {
+        window.location.href = '/main';
+    })
+    const backButtonn = document.getElementById('backButtonn');
+    backButtonn.addEventListener('click', function() {
+        window.location.href = '/main';
+    })
+    
+    let cropper;
+
+    function openCropper(event) {
+        const input = event.target;
+        const file = input.files[0];
+        const image = document.getElementById('profileImage');
+        const imageForCropper = document.getElementById('croppedImage');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                image.src = event.target.result;
+                
+                const img = new Image();
+                img.src = event.target.result;
+                
+                img.onload = function () {
+                    const MAX_DISPLAY_SIZE = 400; // 최대 표시 크기를 설정합니다.
+
+                    let newWidth, newHeight;
+
+                    // 이미지의 가로 세로 비율을 유지하면서 크기를 조절합니다.
+                    if (img.width > img.height) {
+                        newWidth = MAX_DISPLAY_SIZE;
+                        newHeight = (MAX_DISPLAY_SIZE / img.width) * img.height;
+                    } else {
+                        newHeight = MAX_DISPLAY_SIZE;
+                        newWidth = (MAX_DISPLAY_SIZE / img.height) * img.width;
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    canvas.width = newWidth;
+                    canvas.height = newHeight;
+                    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+                    imageForCropper.src = canvas.toDataURL('image/jpeg');
+
+                    cropper = new Cropper(imageForCropper, {
+                        aspectRatio: 1,
+                        viewMode: 2,
+                        guides: true,
+                        movable: false, 
+                        autoCropArea: 0.8, 
+                        center: true,
+                        responsive: false,
+                        cropBoxResizable: false,
+                        background:false
+                        
+                           
+                        
+                    });
+                    
+
+                    document.getElementById('uploadForm').style.display = 'none';
+                    document.getElementById('cropperModal').style.display = 'flex';
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function uploadProfileImage() {
+        const canvas = cropper.getCroppedCanvas();
+        console.log(canvas)
+        if (!canvas) {
+            return;
+        }
+
+        if (typeof canvas.toBlob !== 'function') {
+            console.error('toBlob is not supported');
+            return;
+        }
+        
+        canvas.toBlob(blob => {
+            const croppedImageElement = document.getElementById('croppedImage');
+            croppedImageElement.src = URL.createObjectURL(blob); // 잘라진 이미지 표시
+
+            document.getElementById('cropperModal').style.display = 'none'; // 모달 닫기
+            document.getElementById('uploadForm').style.display = 'block'; // 초기 양식 표시
+            document.getElementById('croppedImageMainView').src = croppedImageElement.src;
+            // document.getElementById('croppedImageDisplay').style.display = 'block';
+            document.getElementById('uploadForm').style.display = 'none';
+            document.getElementById('cropperModal').style.display = 'none';
+            document.getElementById('uploadModal').style.display = 'flex'
+            
+        });
+    }
+
+    function showUploadCancelButtons() {
+        document.getElementById('croppedImageDisplay').style.display = 'none';
+        document.getElementById('uploadForm').style.display = 'block';
+        document.getElementById('cropperModal').style.display = 'none';
+    }
+    function showMessage(success, message) {
+    if (success) {
+        alert(message);
+        window.location.href = '/profile';
+    } else {
+        alert(`Error: ${message}`);
+        window.location.href = '/profile';
+    }
+}
+
+    function performUpload() {
+    const canvas = cropper.getCroppedCanvas();
+    console.log(canvas);
+    if (!canvas) {
+        console.error('Failed to get cropped canvas.');
+        return;
+    }
+
+    canvas.toBlob(blob => {
+        if (!blob) {
+            console.error('Failed to create Blob from canvas.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('profilePicture', blob);
+
+        fetch('/profile/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+                if (data.success) {
+            // Update successful, show success message
+            showMessage(true, '프로필 이미지가 업데이트되었습니다.');
+        } else {
+            // Update failed, show error message
+            showMessage(false, '프로필 이미지 업데이트에 실패했습니다.');
+        }
+                document.getElementById('cropperModal').style.display = 'none';
+                document.getElementById('uploadForm').style.display = 'block';
+                document.getElementById('cropperModal').style.display = 'none';
+                cropper.destroy();
+            })
+            .catch(error => {
+                console.error('Error during upload:', error);
+            });
+    });
+}
+
+
+
+
+
+
+
+
+
+
+function cancelCrop() {
+    cropper.destroy(); // Cropper 파괴
+    document.getElementById('cropperModal').style.display = 'none'; // 모달 닫기
+    // document.getElementById('uploadForm').style.display = 'block'; // 초기 양식 표시
+    window.location.href = '/profile';
+}
+
+const signInBtn = document.getElementById("signIn");
+const signUpBtn = document.getElementById("signUp");
+const fistForm = document.getElementById("form1");
+const secondForm = document.getElementById("form2");
+const container = document.querySelector(".container");
+
+signInBtn.addEventListener("click", () => {
+  container.classList.remove("right-panel-active");
+});
+
+signUpBtn.addEventListener("click", () => {
+  container.classList.add("right-panel-active");
+});
+
+fistForm.addEventListener("submit", (e) => e.preventDefault());
+secondForm.addEventListener("submit", (e) => e.preventDefault());
+
+
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
