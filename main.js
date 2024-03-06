@@ -39,7 +39,7 @@ app.use(session({
 
 app.get('/', (req, res) => {
   if (!authCheck.isOwner(req, res)) {  // 로그인 안되어있으면 로그인 페이지로 이동시킴
-    res.redirect('/auth/login');
+    res.redirect('/intro');
     return false;
   } else {                                      // 로그인 되어있으면 메인 페이지로 이동시킴
     res.redirect('/main');
@@ -50,6 +50,11 @@ app.get('/', (req, res) => {
 
 // 인증 라우터
 app.use('/auth', authRouter);
+
+app.use('/intro', (req, res) => {
+  
+  res.render('home/intro')
+})
 
 // 메인 페이지
 app.get('/main', (req, res) => {
